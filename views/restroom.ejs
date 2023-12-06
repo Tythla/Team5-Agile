@@ -69,14 +69,19 @@
     </p>
     <div class="reviews">
         <h2>Reviews</h2>
-        <% reviews.forEach(review => { %>
-            <div class="review">
-                <p><strong>Rating:</strong> <%= review.rating %></p>
-                <p><%= review.text %></p>
-                
-            </div>
-        <% }) %>
+        <% if (reviews && reviews.length > 0) { %>
+            <% reviews.forEach(review => { %>
+                <div class="review">
+                    <p><strong>Rating:</strong> <%= review.rating %></p>
+                    <p><%= review.text %></p>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p>No reviews yet</p>
+        <% } %>
     </div>
+
+
     <div class="form-container">
     <form action="/restroom/<%= restroomId %>/review" method="POST" required>
         <label for="text">Review:</label>

@@ -1,8 +1,11 @@
 const mongoose = require("mongoose");
 const Restroom = require("./models/restrooms");
+const Review = require("./models/reviews");
+const User = require("./models/users");
 
 async function seedDB() {
   await Restroom.deleteMany({});
+  await Review.deleteMany({});
 
   const initRestroom = [
     {
@@ -79,9 +82,30 @@ async function seedDB() {
     },
   ];
 
-  for (const restroom of initRestroom) {
-    await Restroom.addRestroom(restroom);
+  const createdRestrooms = await Restroom.insertMany(initRestroom);
+
+  const randomUser = await User.findOne();
+  if (!randomUser) {
+    console.log("No users found in the database.");
+    return;
   }
+
+  const initReviews = [
+    {
+      restroomId: createdRestrooms[1]._id,
+      userId: randomUser._id,
+      text: "Very clean",
+      rating: 5,
+    },
+    {
+      restroomId: createdRestrooms[1]._id,
+      userId: randomUser._id,
+      text: "Good enviroment, but limited space.",
+      rating: 4,
+    },
+  ];
+
+  await Review.insertMany(initReviews);
 }
 
 module.exports = seedDB;

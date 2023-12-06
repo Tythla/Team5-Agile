@@ -230,18 +230,28 @@ app.get("/restroom/:id", async (req, res) => {
     const restroom = await Restroom.findById(restroomId);
     if (restroom) {
       console.log(restroom);
+
       const reviews = await Review.find({
-        '_id': { $in: restroom.reviews }
-    }).select('text'); 
-      res.render("restroom", { restroomId:restroomId,restroom:restroom,username: req.session.username,reviews:reviews });
+        restroomId: new mongoose.Types.ObjectId(restroomId),
+      });
+
+      console.log(reviews); // Logging the reviews for debugging
+
+      res.render("restroom", {
+        restroomId: restroomId,
+        restroom: restroom,
+        username: req.session.username,
+        reviews: reviews,
+      });
     } else {
-      // If no restroom is found, send a 404 response with the message "Restroom not found" and its id
       res.status(404).send(`Restroom not found with id ${restroomId}`);
     }
   } catch (err) {
+    console.error(err);
     res.status(500).send(err.message);
   }
 });
+
 
 app.post("/restroom/:id/review",async(req,res)=>{
   if (!req.session.userId) {
