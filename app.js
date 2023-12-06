@@ -287,9 +287,15 @@ app.post("/restroom/:id/review",async(req,res)=>{
 
 app.get("/createRestroom", (req, res) => {
   if (!req.session.userId) {
-    return res.redirect('/login');
+    return res.redirect("/login");
   }
-  res.render("createRestroom");
+  try {
+    console.log(req);
+    res.render("createRestroom", { username: req.session.username });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(err.message);
+  }
 });
 
 app.post("/createRestroom", upload.single("reviewImage"), async (req, res) => {
