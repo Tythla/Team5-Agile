@@ -94,9 +94,9 @@ app.use(async (req, res, next) => {
     const location = await fetchLocation(testIp);
 
     if (location) {
-      console.log(`Location fetched successfully: ${location}`);
+      //console.log(`Location fetched successfully: ${location}`);
       req.session.location = location;
-      console.log('Session location set:', req.session.location); // Confirming session location
+      //console.log('Session location set:', req.session.location); // Confirming session location
     } else {
       console.log("Failed to fetch location");
     }
@@ -147,7 +147,7 @@ app.get("/", async (req, res) => {
 
 app.get("/home", async (req, res) => {
   try {
-    console.log('Session data in /home:', req.session);
+    // console.log('Session data in /home:', req.session);
     const restroomsInNJ = await Restroom.find({ "location.state": "NJ" });
     res.render("home", {
       restrooms: restroomsInNJ,
@@ -304,7 +304,8 @@ app.post("/createRestroom", upload.single("reviewImage"), async (req, res) => {
 
     // Extracting data from the request
     const { location, capacity, metrics, ratingMetrics, text } = req.body;
-    const userId = req?.session?.userId;
+    const userId = req.session.userId;
+    console.log(req.session);
 
     // Process checkbox values
     for (const key in metrics) {
@@ -403,10 +404,10 @@ const fetchLocation = async (ip) => {
     // Here I used my apiKey
     const response = await fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=0747a801940b4186b2b5008978c849b9&ip=${ip}`);
     const data = await response.json();
-    console.log(`API response for IP ${ip}:`, data);
+    //console.log(`API response for IP ${ip}:`, data);
 
     const location = `${data.city}, ${data.state_prov}, ${data.country_name}`;
-    console.log(`Fetched location for IP ${ip}:`, location);
+    //console.log(`Fetched location for IP ${ip}:`, location);
     return location;
   } catch (error) {
     console.error('Error in fetchLocation:', error);
