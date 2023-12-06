@@ -352,6 +352,7 @@ app.post("/createRestroom", upload.single("reviewImage"), async (req, res) => {
 
     // Prepare review data for creation
     const reviewData = {
+      userId:req.sesstion.userId,
       restroomId: createdRestroom._id,
       reviewerId: userId,
       text,
