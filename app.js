@@ -323,7 +323,10 @@ app.post("/createRestroom", upload.single("reviewImage"), async (req, res) => {
                     parseFloat(ratingMetrics.accessibility) +
                     parseFloat(ratingMetrics.facility)) / 3;
     console.log('rating is:', rating);
-
+      if (!req.body.tempFilePath) {
+        req.body.tempFilePath =
+          "/public/storage/default.jpg";
+      }
     // Prepare restroom data for creation
     const restroomData = {
       location: {
@@ -352,7 +355,7 @@ app.post("/createRestroom", upload.single("reviewImage"), async (req, res) => {
 
     // Prepare review data for creation
     const reviewData = {
-      userId:req.sesstion.userId,
+      userId:req.session.userId,
       restroomId: createdRestroom._id,
       reviewerId: userId,
       text,
