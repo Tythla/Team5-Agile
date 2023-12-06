@@ -67,19 +67,25 @@
             <% } %>
         </div>
     </p>
+
     <div class="reviews">
         <h2>Reviews</h2>
         <% if (reviews && reviews.length > 0) { %>
             <% reviews.forEach(review => { %>
                 <div class="review">
-                    <p><strong>Rating:</strong> <%= review.rating %></p>
-                    <p><%= review.text %></p>
+                    <div class="review-rating">
+                        <strong>Rating:</strong> <%= review.rating %>
+                    </div>
+                    <div class="review-text">
+                        <%= review.text %>
+                    </div>
                 </div>
             <% }) %>
         <% } else { %>
             <p>No reviews yet</p>
         <% } %>
     </div>
+
 
 
     <div class="form-container">

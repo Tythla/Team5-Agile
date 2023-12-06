@@ -235,7 +235,7 @@ footer {
 .profile-content {
   text-align: center;
   margin: auto;
-  width: 50%; /* Adjust the width as needed */
+  width: 50%;
 }
 
 .form-container {
@@ -243,4 +243,31 @@ footer {
   top:250px;
   right: 0;
   width: 33%;
+}
+
+.reviews {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-top: 20px;
+    background-color: #f9f9f9;
+}
+
+.review {
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.review:last-child {
+    border-bottom: none;
+}
+
+.review-rating {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.review-text {
+    font-size: 14px;
 }
