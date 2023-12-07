@@ -56,9 +56,9 @@ describe('GET /home', () => {
 
 describe('GET /createRestroom', () => {
     // Note: This requires setup for an authenticated session
-    it('should return the create restroom page for logged-in users', async () => {
+    it('should redirect the create restroom page for non logged-in users', async () => {
         // Example assuming you have a way to simulate a login or set session data
         const response = await request(app).get('/createRestroom');
-        expect(response.status).toBe(200);
+        expect(response.status).toBe(302);
     });
 });
